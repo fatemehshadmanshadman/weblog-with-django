@@ -1,0 +1,63 @@
+{% load static %}
+<html lang="en" dir="ltr">
+    <head>
+        <link rel="stylesheet" href={% static 'style.css'%}
+        <meta charset="utf-8">
+        <title>
+            {%block title%}
+            {%endblock%}
+        </title>
+    </head>
+
+    <body> 
+    <header>    
+        <nav>
+            <ul>
+                <li>
+                    <h3><a href="{% url 'home'%}">HOME</a></h3>
+                </li>
+                <li>
+                    <h3><a href="{%url 'accounts:signup'%}">sign up</a></h3>
+                </li>
+                {%if not user.is_authenticated%}
+                <li>
+                    <a href="{% url 'accounts:login'%}">Log in</a>
+                </li>
+                 
+                {% else%}
+                <li>
+                    {% comment %} <form method="post" action="{%url 'accounts:logout'%}">
+                        {% csrf_token %}
+                        <input type="submit" value="log out">
+                    </form> {% endcomment %}
+                    <a href="{% url 'accounts:logout'%}">log out</a>
+                </li>
+                {% endif %}
+                <li>
+                    <h3><a href="{%url 'accounts:signup'%}">weblog</a></h3>
+                </li>
+                <li>
+                    <a class="highlight" href="{% url 'articles:create'%}">Create new Article</a>
+                    {% comment %} <form method="GET" action="{%url 'articles:create'%}">
+                        {% csrf_token %}
+                        <button type="submit">Create Article</button>
+                    </form> {% endcomment %}
+                </li>
+            </ul>
+        </nav>  
+    </header>
+
+
+        <div class="wrapper" >
+        {%block content%}     
+        {%endblock%}
+        </div>
+
+        <footer>
+            <p>name:fatemeh</p>
+            <p>gmail:fatemeh.shadman.1999@gmail.com</p>
+            <p>address:arizona</p>
+        </footer>
+    </body>
+
+</html>
